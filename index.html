@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="kirara">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorldLine | AI-Powered Digital Asset</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&family=Fira+Code:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FAF8F5; --bg-card: rgba(255, 255, 255, 0.8); --accent: #FFB7C5;
+            --text-main: #7D6E6E; --radius: 2rem; --font: 'Zen Maru Gothic', sans-serif;
+            --transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        html[data-theme="cyberpunk"] {
+            --bg-primary: #0D0E15; --bg-card: rgba(22, 27, 34, 0.8); --accent: #00F0FF;
+            --text-main: #A0A0A0; --radius: 0px; --font: 'Fira Code', monospace;
+            --transition: all 0.1s steps(4);
+        }
+        html[data-theme="minimal"] {
+            --bg-primary: #FFFFFF; --bg-card: rgba(245, 245, 245, 0.5); --accent: #000000;
+            --text-main: #333333; --radius: 0.75rem; --font: 'Inter', sans-serif;
+            --transition: all 0.4s ease-in-out;
+        }
+        body {
+            background-color: var(--bg-primary); color: var(--text-main);
+            font-family: var(--font); transition: var(--transition);
+            min-height: 100vh; overflow-x: hidden;
+        }
+        .world-card {
+            background: var(--bg-card); border: 2px solid var(--accent);
+            border-radius: var(--radius); transition: var(--transition);
+            backdrop-filter: blur(12px);
+        }
+        .btn-primary {
+            background-color: var(--accent); color: white;
+            border-radius: var(--radius); transition: var(--transition);
+            box-shadow: 0 4px 0px rgba(0,0,0,0.1);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 0px rgba(0,0,0,0.1); filter: brightness(1.1); }
+        .btn-primary:active { transform: translateY(2px); box-shadow: 0 0px 0px rgba(0,0,0,0.1); }
+
+        /* Effects */
+        .glitch { animation: glitch 1s linear infinite; }
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
+        }
+        .petal {
+            position: absolute; background-color: var(--accent);
+            border-radius: 150% 0 150% 0; opacity: 0.6;
+            pointer-events: none; animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body x-data="worldLineEngine()" x-init="init()">
+    <div id="bg-effects" class="fixed inset-0 -z-10 pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-6 py-12 space-y-12">
+        <header class="flex justify-between items-center">
+            <div class="text-2xl font-bold glitch" x-text="themeData[currentTheme].brand"></div>
+            <button @click="roll()" class="btn-primary px-6 py-3 font-bold flex items-center gap-2">
+                <span>🎲 隨機世界線</span>
+            </button>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="world-card p-12 space-y-6 shadow-2xl relative overflow-hidden">
+                    <h1 class="text-6xl font-bold leading-tight" x-text="themeData[currentTheme].title"></h1>
+                    <p class="text-xl opacity-80 leading-relaxed" x-text="themeData[currentTheme].desc"></p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#services" class="btn-primary px-8 py-4 font-bold text-lg">啟動合作 ➔</a>
+                        <button class="px-8 py-4 border-2 border-current font-bold transition-all hover:bg-opacity-10" style="border-radius: var(--radius)">關於我</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="world-card p-6 space-y-3 h-40 flex flex-col justify-end">
+                    <div class="text-xs font-bold opacity-50 uppercase tracking-widest">Performance</div>
+                    <div class="text-2xl font-bold">Astro 5.0</div>
+                    <p class="text-sm opacity-70">極致速度, SEO 滿分</p>
+                </div>
+                <div class="world-card p-6 space-y-3 h-40 flex flex-col justify-end">
+                    <div class="text-xs font-bold opacity-50 uppercase tracking-widest">Visuals</div>
+                    <div class="text-2xl font-bold">WebGPU</div>
+                    <p class="text-sm opacity-70">次世代 3D 交互</p>
+                </div>
+                <div class="world-card p-6 space-y-3 h-40 flex flex-col justify-end col-span-2">
+                    <div class="text-xs font-bold opacity-50 uppercase tracking-widest">Monetization</div>
+                    <div class="text-2xl font-bold">Payment-Ready</div>
+                    <p class="text-sm opacity-70">整合 Stripe/LemonSqueezy，將流量轉化為利潤。</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Monetization Section -->
+        <section id="services" class="py-20 text-center space-y-12">
+            <h2 class="text-4xl font-bold" x-text="themeData[currentTheme].serviceTitle"></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="world-card p-8 space-y-4 hover:scale-105 transition-transform">
+                    <div class="text-3xl">🎨</div>
+                    <h3 class="text-xl font-bold">高端視覺建站</h3>
+                    <p class="text-sm opacity-70">打造像本站一樣令人驚艷的數位門面</p>
+                    <div class="text-2xl font-bold" x-text="themeData[currentTheme].price1"></div>
+                    <button class="btn-primary w-full py-3 font-bold">立即預約</button>
+                </div>
+                <div class="world-card p-8 space-y-4 hover:scale-105 transition-transform border-4 shadow-xl" style="border-color: var(--accent)">
+                    <div class="text-3xl">🚀</div>
+                    <h3 class="text-xl font-bold">流量轉化系統</h3>
+                    <p class="text-sm opacity-70">建立高效的銷售漏斗與自動化收款</p>
+                    <div class="text-2xl font-bold" x-text="themeData[currentTheme].price2"></div>
+                    <button class="btn-primary w-full py-3 font-bold">最熱門選擇</button>
+                </div>
+                <div class="world-card p-8 space-y-4 hover:scale-105 transition-transform">
+                    <div class="text-3xl">🤖</div>
+                    <h3 class="text-xl font-bold">AI 替身開發</h3>
+                    <p class="text-sm opacity-70">為你的品牌打造 24/7 在線的 AI 代理</p>
+                    <div class="text-2xl font-bold" x-text="themeData[currentTheme].price3"></div>
+                    <button class="btn-primary w-full py-3 font-bold">詢問細節</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- AI Assistant -->
+    <div class="fixed bottom-8 right-8 w-80 world-card p-5 shadow-2xl space-y-4 animate-bounce-subtle">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full border-2 border-current" :style="{backgroundColor: themeData[currentTheme].avatar}"></div>
+            <div>
+                <div class="font-bold text-sm" x-text="themeData[currentTheme].aiName"></div>
+                <div class="text-[10px] opacity-50">WorldLine AI Agent</div>
+            </div>
+        </div>
+        <div class="bg-black bg-opacity-10 p-4 rounded-xl text-sm italic leading-relaxed" x-text="themeData[currentTheme].aiMsg"></div>
+    </div>
+
+    <script>
+        function worldLineEngine() {
+            return {
+                currentTheme: 'kirara',
+                themeData: {
+                    kirara: {
+                        brand: "🌸 Akira's Garden",
+                        title: "歡迎來到我的溫暖空間",
+                        desc: "把日常的微光，寫成程式碼的詩。我專注於用溫柔的設計解決複雜的商業問題。",
+                        serviceTitle: "讓你的品牌變得療癒且迷人",
+                        price1: "$499", price2: "$999", price3: "$1,499",
+                        aiName: "小櫻 (Kirara AI)",
+                        aiMsg: "你好呀！今天也要加油喔🌸 想要看看我如何幫你賺錢嗎？",
+                        avatar: "#FFB7C5"
+                    },
+                    cyberpunk: {
+                        brand: "⚡ AKIRA.EXE",
+                        title: "ACCESS GRANTED: SYSTEM ROOT",
+                        desc: "數據流在血管中奔湧。這裡不提供溫情，只提供最高效的數位變現方案。",
+                        serviceTitle: "駭入市場，重建競爭優勢",
+                        price1: "¥ 50,000", price2: "¥ 120,000", price3: "¥ 200,000",
+                        aiName: "Unit-01 (Core AI)",
+                        aiMsg: "[SYSTEM]: 掃描完成。目標：最大化利潤。指令請輸入。",
+                        avatar: "#00F0FF"
+                    },
+                    minimal: {
+                        brand: "Akira. Studio",
+                        title: "Less is More.",
+                        desc: "專注於本質的設計，追求極致的簡約與高效能。讓產品自己會說話。",
+                        serviceTitle: "精準、簡約、高轉化",
+                        price1: "€ 500", price2: "€ 1,200", price3: "€ 2,000",
+                        aiName: "Studio Assistant",
+                        aiMsg: "您好。我是您的數位助理。讓我們用最簡潔的方式達成目標。",
+                        avatar: "#000000"
+                    }
+                },
+                init() {
+                    this.roll();
+                },
+                roll() {
+                    const themes = Object.keys(this.themeData);
+                    this.currentTheme = themes[Math.floor(Math.random() * themes.length)];
+                    document.documentElement.setAttribute('data-theme', this.currentTheme);
+                    this.updateEffects();
+                },
+                updateEffects() {
+                    const container = document.getElementById('bg-effects');
+                    container.innerHTML = '';
+                    if (this.currentTheme === 'kirara') {
+                        for(let i=0; i<25; i++) {
+                            const petal = document.createElement('div');
+                            petal.className = 'petal';
+                            petal.style.left = Math.random() * 100 + 'vw';
+                            petal.style.width = Math.random() * 10 + 5 + 'px';
+                            petal.style.height = petal.style.width;
+                            petal.style.animationDuration = Math.random() * 3 + 5 + 's';
+                            petal.style.animationDelay = Math.random() * 5 + 's';
+                            container.appendChild(petal);
+                        }
+                    } else if (this.currentTheme === 'cyberpunk') {
+                        container.style.background = 'linear-gradient(rgba(0,240,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,240,255,0.05) 1px, transparent 1px)';
+                        container.style.backgroundSize = '50px 50px';
+                    } else {
+                        container.style.background = 'none';
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
