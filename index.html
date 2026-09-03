@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WorldLine | AI-Powered Digital Asset</title>
+    <title>WorldLine | Silent Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&family=Fira+Code:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -42,7 +42,6 @@
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 0px rgba(0,0,0,0.1); filter: brightness(1.1); }
         .btn-primary:active { transform: translateY(2px); box-shadow: 0 0px 0px rgba(0,0,0,0.1); }
 
-        /* Effects */
         .glitch { animation: glitch 1s linear infinite; }
         @keyframes glitch {
             2%, 64% { transform: translate(2px, 0) skew(0deg); }
@@ -78,7 +77,7 @@
                     <h1 class="text-6xl font-bold leading-tight" x-text="themeData[currentTheme].title"></h1>
                     <p class="text-xl opacity-80 leading-relaxed" x-text="themeData[currentTheme].desc"></p>
                     <div class="flex flex-wrap gap-4 pt-4">
-                        <a href="#services" class="btn-primary px-8 py-4 font-bold text-lg">啟動合作 ➔</a>
+                        <a href="#order" class="btn-primary px-8 py-4 font-bold text-lg">直接下單 ➔</a>
                         <button class="px-8 py-4 border-2 border-current font-bold transition-all hover:bg-opacity-10" style="border-radius: var(--radius)">關於我</button>
                     </div>
                 </div>
@@ -88,7 +87,7 @@
                 <div class="world-card p-6 space-y-3 h-40 flex flex-col justify-end">
                     <div class="text-xs font-bold opacity-50 uppercase tracking-widest">Performance</div>
                     <div class="text-2xl font-bold">Astro 5.0</div>
-                    <p class="text-sm opacity-70">極致速度, SEO 滿分</p>
+                    <p class="text-sm opacity-70">極速載入, SEO 滿分</p>
                 </div>
                 <div class="world-card p-6 space-y-3 h-40 flex flex-col justify-end">
                     <div class="text-xs font-bold opacity-50 uppercase tracking-widest">Visuals</div>
@@ -96,35 +95,36 @@
                     <p class="text-sm opacity-70">次世代 3D 交互</p>
                 </div>
                 <div class="world-card p-6 space-y-3 h-40 flex flex-col justify-end col-span-2">
-                    <div class="text-xs font-bold opacity-50 uppercase tracking-widest">Monetization</div>
-                    <div class="text-2xl font-bold">Payment-Ready</div>
-                    <p class="text-sm opacity-70">整合 Stripe/LemonSqueezy，將流量轉化為利潤。</p>
+                    <div class="text-xs font-bold opacity-50 uppercase tracking-widest">Work Style</div>
+                    <div class="text-2xl font-bold">Async-Only</div>
+                    <p class="text-sm opacity-70">不開會、不通話。透過精準需求表單高效交付。</p>
                 </div>
             </div>
         </main>
 
-        <!-- Monetization Section -->
-        <section id="services" class="py-20 text-center space-y-12">
+        <!-- Order Section (Social-Anxiety Optimized) -->
+        <section id="order" class="py-20 text-center space-y-12">
             <h2 class="text-4xl font-bold" x-text="themeData[currentTheme].serviceTitle"></h2>
+            <div class="text-sm opacity-60 mb-8">⚡️ 價格透明化 | 無需議價 | 僅接受非同步文字溝通</div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="world-card p-8 space-y-4 hover:scale-105 transition-transform">
                     <div class="text-3xl">🎨</div>
-                    <h3 class="text-xl font-bold">高端視覺建站</h3>
-                    <p class="text-sm opacity-70">打造像本站一樣令人驚艷的數位門面</p>
+                    <h3 class="text-xl font-bold">視覺型網站</h3>
+                    <p class="text-sm opacity-70">極強視覺衝擊，適合個人品牌</p>
                     <div class="text-2xl font-bold" x-text="themeData[currentTheme].price1"></div>
-                    <button class="btn-primary w-full py-3 font-bold">立即預約</button>
+                    <button class="btn-primary w-full py-3 font-bold">填寫需求表</button>
                 </div>
                 <div class="world-card p-8 space-y-4 hover:scale-105 transition-transform border-4 shadow-xl" style="border-color: var(--accent)">
                     <div class="text-3xl">🚀</div>
-                    <h3 class="text-xl font-bold">流量轉化系統</h3>
-                    <p class="text-sm opacity-70">建立高效的銷售漏斗與自動化收款</p>
+                    <h3 class="text-xl font-bold">全自動獲利站</h3>
+                    <p class="text-sm opacity-70">視覺 + 轉化模組 + 金流整合</p>
                     <div class="text-2xl font-bold" x-text="themeData[currentTheme].price2"></div>
                     <button class="btn-primary w-full py-3 font-bold">最熱門選擇</button>
                 </div>
                 <div class="world-card p-8 space-y-4 hover:scale-105 transition-transform">
                     <div class="text-3xl">🤖</div>
                     <h3 class="text-xl font-bold">AI 替身開發</h3>
-                    <p class="text-sm opacity-70">為你的品牌打造 24/7 在線的 AI 代理</p>
+                    <p class="text-sm opacity-70">打造 24/7 替你接客的 AI Agent</p>
                     <div class="text-2xl font-bold" x-text="themeData[currentTheme].price3"></div>
                     <button class="btn-primary w-full py-3 font-bold">詢問細節</button>
                 </div>
@@ -138,7 +138,7 @@
             <div class="w-10 h-10 rounded-full border-2 border-current" :style="{backgroundColor: themeData[currentTheme].avatar}"></div>
             <div>
                 <div class="font-bold text-sm" x-text="themeData[currentTheme].aiName"></div>
-                <div class="text-[10px] opacity-50">WorldLine AI Agent</div>
+                <div class="text-[10px] opacity-50">Async-First AI Agent</div>
             </div>
         </div>
         <div class="bg-black bg-opacity-10 p-4 rounded-xl text-sm italic leading-relaxed" x-text="themeData[currentTheme].aiMsg"></div>
@@ -152,31 +152,31 @@
                     kirara: {
                         brand: "🌸 Akira's Garden",
                         title: "歡迎來到我的溫暖空間",
-                        desc: "把日常的微光，寫成程式碼的詩。我專注於用溫柔的設計解決複雜的商業問題。",
+                        desc: "用溫柔的設計解決複雜的商業問題。我喜歡在安靜中創造驚艷的作品。",
                         serviceTitle: "讓你的品牌變得療癒且迷人",
                         price1: "$499", price2: "$999", price3: "$1,499",
                         aiName: "小櫻 (Kirara AI)",
-                        aiMsg: "你好呀！今天也要加油喔🌸 想要看看我如何幫你賺錢嗎？",
+                        aiMsg: "你好呀！🌸 我會幫你處理所有麻煩的溝通，你只需要填表，剩下的交給我！",
                         avatar: "#FFB7C5"
                     },
                     cyberpunk: {
                         brand: "⚡ AKIRA.EXE",
                         title: "ACCESS GRANTED: SYSTEM ROOT",
-                        desc: "數據流在血管中奔湧。這裡不提供溫情，只提供最高效的數位變現方案。",
+                        desc: "數據流在血管中奔湧。高效交付，無需廢話。在這裡，代碼就是唯一的語言。",
                         serviceTitle: "駭入市場，重建競爭優勢",
                         price1: "¥ 50,000", price2: "¥ 120,000", price3: "¥ 200,000",
                         aiName: "Unit-01 (Core AI)",
-                        aiMsg: "[SYSTEM]: 掃描完成。目標：最大化利潤。指令請輸入。",
+                        aiMsg: "[SYSTEM]: 溝通協議已簡化。禁用語音通話。請提交需求文檔。",
                         avatar: "#00F0FF"
                     },
                     minimal: {
                         brand: "Akira. Studio",
                         title: "Less is More.",
-                        desc: "專注於本質的設計，追求極致的簡約與高效能。讓產品自己會說話。",
+                        desc: "專注於本質的設計。不開會，不冗餘。用最簡潔的路徑達成最高目標。",
                         serviceTitle: "精準、簡約、高轉化",
                         price1: "€ 500", price2: "€ 1,200", price3: "€ 2,000",
                         aiName: "Studio Assistant",
-                        aiMsg: "您好。我是您的數位助理。讓我們用最簡潔的方式達成目標。",
+                        aiMsg: "您好。我將為您處理所有行政對接。請直接選擇您的方案。",
                         avatar: "#000000"
                     }
                 },
